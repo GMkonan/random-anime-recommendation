@@ -17,9 +17,9 @@ export const genres = derived(genresStore, ($genresStore) => {
   return [];
 });
 
-export const randomSelectedAnimeStore = writable({});
+export const randomSelectedAnimeStore = writable();
 
 export const randomSelectedAnime = derived(randomSelectedAnimeStore, ($randomSelectedAnimeStore) => {
     //@ts-ignore
-    return $randomSelectedAnimeStore.data
+    return $randomSelectedAnimeStore
 })
