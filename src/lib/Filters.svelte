@@ -4,8 +4,8 @@ import { totalAnimes } from "../store";
 
 <main>
     <!-- choose min score option? -->
-    <h5>Total animes</h5>
     {#if $totalAnimes !== undefined}
+        <h5>Total animes</h5>
         <div>{$totalAnimes}</div>
     {/if}
 </main>

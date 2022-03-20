@@ -1,17 +1,31 @@
 <script lang="ts">
   export let randomSelectedAnime;
+  console.log($randomSelectedAnime)
 </script>
 
-<main>
-  <h3>{$randomSelectedAnime.title}</h3>
+<main id="randomAnime">
+  <h1>{$randomSelectedAnime.title}</h1>
   <section>
     <img
     src={$randomSelectedAnime.images.jpg.image_url}
     alt={$randomSelectedAnime.title}
     />
-    <div>
+    <div class="wrapper">
+      <div class="info">
+        <div class="score">
+          <h4>SCORE</h4>
+          <span>{$randomSelectedAnime.score}</span>
+        </div>
+      </div>
+      <div class="genres">
+        <h3>Genres</h3>
+        <ul>
+          <li>Action,</li>
+          <li>Gender Bender</li>
+        </ul>
+      </div>
+      <h3>Synopsis</h3>
       <p>{$randomSelectedAnime.synopsis}</p>
-      <h4>{$randomSelectedAnime.score}</h4>
     </div>
     
   </section>
@@ -21,26 +35,69 @@
   main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
     margin: 32px 0 16px 0;
     padding: 16px;
-    border: 3px solid #0d0d0d;
+    /* border: 3px solid #0d0d0d; */
     border-radius: 8px;
   }
-  h3 {
+  h1 {
+    margin: 0 auto;
     margin-bottom: 12px;
   }
   img {
+    margin: 0 24px;
     width: min-content;
     height: min-content;
   }
   section {
     display:flex;
-    width: 800px;
   }
-  div {
+  .wrapper {
     display: flex;
     flex-direction: column;
+    margin: 0 64px;
+  }
+  h4 {
+    font-size: 1.1rem;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    color: white;
+    background: #ff8e3c;
+    width: min-content;
+    padding: 4px;
+  }
+  p {
+    margin-top: 8px;
+    font-size: 1.1rem;
+  }
+  span {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #2a2a2a;
+  }
+  .score {
+    width: min-content;
+    margin-left: 16px;
+    text-align: center;
+  }
+  .info {
+    border-radius: 8px;
+    border: 2px solid black;
+    height: 100px;
+  }
+  h3 {
+    margin-top: 16px;
+    color:#ff8e3c;
+    border-bottom: 2px solid #ff8e3c;
+  }
+  ul {
+    display: flex;
+    list-style-type: none;
+    gap: 10px;
+  }
+  li {
+    margin-top: 8px;
   }
 </style>
