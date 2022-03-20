@@ -1,0 +1,35 @@
+<script lang="ts">
+import { totalAnimes } from "../store";
+</script>
+
+<main>
+    <!-- choose min score option? -->
+    <h5>Total animes</h5>
+    {#if $totalAnimes !== undefined}
+        <div>{$totalAnimes}</div>
+    {/if}
+</main>
+
+<style lang="scss">
+
+main {
+    display: flex;
+    width: 300px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+h5 {
+    margin-bottom: 4px;
+
+}
+
+div {
+    font-size: 1.6rem;
+    border: 2px solid #ff8e3c;
+    border-radius: 50%;
+    padding: 8px;
+}
+
+</style>

@@ -23,3 +23,5 @@ export const randomSelectedAnime = derived(randomSelectedAnimeStore, ($randomSel
     //@ts-ignore
     return $randomSelectedAnimeStore
 })
+
+export const totalAnimes = writable<Number>();

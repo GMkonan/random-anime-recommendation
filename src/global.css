@@ -19,6 +19,10 @@ background: #fffffe;
 transition: color 350ms ease 0s, background-color 350ms ease 0s;
 }
 
+#app {
+  height: 100%;
+}
+
   /* ::-webkit-scrollbar {
     width: 9px;
     background-color: transparent;
