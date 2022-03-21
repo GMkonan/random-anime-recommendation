@@ -20,18 +20,27 @@
     api("https://api.jikan.moe/v4/genres/anime", genresStore);
   });
 
-  const getRandomAnime = () => {
+  const getRandomAnime = async () => {
     if (selectedGenres.length !== 0) {
+      
       const formatedGenreIds = selectedGenres.toString().split(" ").join(",");
-      console.log(formatedGenreIds);
-      const selectRandomPage = Math.floor(
-            Math.random() * 278
-          );
-      fetch(`https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}&page=${selectRandomPage}`)
+      
+      let lastVisiblePage;
+      
+      await fetch(`https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}`)
         .then((response) => response.json())
         .then((jsonResponse) => {
-          console.log(jsonResponse)
-          console.log(jsonResponse.data.length)
+          lastVisiblePage = jsonResponse.pagination.last_visible_page;
+        });
+      let selectRandomPage = Math.floor(Math.random() * lastVisiblePage);
+     
+      fetch(
+        `https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}&page=${selectRandomPage}`
+      )
+        .then((response) => response.json())
+        .then((jsonResponse) => {
+          console.log(jsonResponse);
+          console.log(jsonResponse.data.length);
           const selectRandom = Math.floor(
             Math.random() * jsonResponse.data.length
           );
@@ -64,22 +73,24 @@
 <main>
   <div class="options">
     <GenreChooser {selectedGenres} {genres} />
-    <Filters />
+    <!-- <Filters /> -->
   </div>
 
   <button on:click={getRandomAnime}>Get a random Anime!</button>
 </main>
 
 <main>
-  {#if $randomSelectedAnime}
-    <RandomAnime {randomSelectedAnime} />
-  {:else if $randomSelectedAnime == []}
-    <h2>Could Not find any anime</h2>
-    <p>
-      Check if the "total animes" count is more than 0. This count represents
-      the quantity of animes that fall under that genre of genres.
-    </p>
-  {/if}
+  <div id="randomAnime">
+    {#if $randomSelectedAnime}
+      <RandomAnime {randomSelectedAnime} />
+    {:else if $randomSelectedAnime == []}
+      <h2>Could Not find any anime</h2>
+      <p>
+        Check if the "total animes" count is more than 0. This count represents
+        the quantity of animes that fall under that genre of genres.
+      </p>
+    {/if}
+  </div>
 </main>
 
 <style lang="scss">
@@ -111,8 +122,11 @@
     width: 200px;
     height: 70px;
     font-size: 1.1rem;
-    background-color: #ff8e3c;
+    background-color: hsl(25.2,100%,61.8%);
     border-radius: 4px;
     cursor: pointer;
+    &:hover {
+      background-color: hsla(25.2,100%,61.8%, 95%);
+    }
   }
 </style>

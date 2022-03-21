@@ -3,7 +3,7 @@
   console.log($randomSelectedAnime)
 </script>
 
-<main id="randomAnime">
+<main>
   <h1>{$randomSelectedAnime.title}</h1>
   <section>
     <img
@@ -14,14 +14,17 @@
       <div class="info">
         <div class="score">
           <h4>SCORE</h4>
-          <span>{$randomSelectedAnime.score}</span>
+          <span>{$randomSelectedAnime.score == null ? "N/A" : $randomSelectedAnime.score}</span>
         </div>
       </div>
       <div class="genres">
         <h3>Genres</h3>
         <ul>
-          <li>Action,</li>
-          <li>Gender Bender</li>
+          {#each $randomSelectedAnime.genres as genre}
+            <li>
+              {genre.name} /
+            </li>
+          {/each}
         </ul>
       </div>
       <h3>Synopsis</h3>

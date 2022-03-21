@@ -5,6 +5,8 @@ import { totalAnimes } from "../store";
     export let selectedGenres;
     export let genres;
 
+    let checked = false;
+
     const handleSelectedGenres = (genre_id) => {
         if(selectedGenres.includes(genre_id)) {
         selectedGenres.splice(selectedGenres.indexOf(genre_id), 1)
@@ -25,9 +27,10 @@ import { totalAnimes } from "../store";
     <h1>Any favorite genre?</h1>
     <section>
       {#each $genres as genre}
-      <div on:click={() => handleSelectedGenres(genre.mal_id)}>
-        {genre.name}
-      </div>
+      <label on:click={() => handleSelectedGenres(genre.mal_id)}>
+        <input bind:group={$genres} value={genre} type="checkbox" bind:checked={checked} />
+        <span>{genre.name}</span>
+      </label>
       {/each}
     </section>
 </main>
@@ -46,14 +49,22 @@ section {
     display: grid;
     justify-content: center;
     align-items: center;
-    width: 400px;
-    height: 350px;
+    width: 1000px;
+    height: 500px;
     text-align: center;
     grid-template-columns: repeat(3, 1fr);
   }
 
-div {
+label {
     cursor: pointer;
+    &:hover {
+      background-color: #ff8e3c;
+    }
+
+}
+
+input {
+  appearance: none;
 }
 
 </style>

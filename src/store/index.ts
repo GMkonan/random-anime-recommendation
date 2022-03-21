@@ -12,7 +12,7 @@ Here, we'll create a derived store to hold the drink names.
 export const genres = derived(genresStore, ($genresStore) => {
   if ($genresStore){
     //temporary slice
-    return $genresStore.data.slice(0, 9);
+    return $genresStore.data.slice(0, 27);
   }
   return [];
 });
