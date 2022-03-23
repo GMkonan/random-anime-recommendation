@@ -1,10 +1,10 @@
 <script lang="ts">
 import { totalAnimes } from "../store";
 
-
+    import MultiSelect from 'svelte-multiselect'
     export let selectedGenres;
     export let genres;
-
+    let selected = []
     let checked = false;
 
     const handleSelectedGenres = (genre_id) => {
@@ -24,15 +24,9 @@ import { totalAnimes } from "../store";
 </script>
 
 <main>
-    <h1>Any favorite genre?</h1>
-    <section>
-      {#each $genres as genre}
-      <label on:click={() => handleSelectedGenres(genre.mal_id)}>
-        <input bind:group={$genres} value={genre} type="checkbox" bind:checked={checked} />
-        <span>{genre.name}</span>
-      </label>
-      {/each}
-    </section>
+  <MultiSelect 
+  bind:selected 
+  options={$genres.map((genre) => genre.name)} />
 </main>
 
 <style lang="scss">
@@ -42,29 +36,16 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 2px solid #0d0d0d;
   }
 
-section {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 1000px;
-    height: 500px;
-    text-align: center;
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-label {
-    cursor: pointer;
-    &:hover {
-      background-color: #ff8e3c;
-    }
-
+:global(div.multiselect) {
+  width: 500px;
+  height: 40px;
 }
 
-input {
-  appearance: none;
+:global(div.multiselect > ul.selected > li) {
+  /* selected list items */
+  background-color: #ff8e3c;
 }
 
 </style>

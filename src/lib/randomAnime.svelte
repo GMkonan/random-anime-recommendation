@@ -22,7 +22,7 @@
         <ul>
           {#each $randomSelectedAnime.genres as genre}
             <li>
-              {genre.name} /
+              {genre.name} 
             </li>
           {/each}
         </ul>
@@ -34,7 +34,7 @@
   </section>
 </main>
 
-<style>
+<style lang="scss">
   main {
     display: flex;
     flex-direction: column;
@@ -102,5 +102,8 @@
   }
   li {
     margin-top: 8px;
+    &:not(:last-child)::after {
+      content: "|";
+    }
   }
 </style>
