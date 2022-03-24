@@ -8,6 +8,7 @@ import { totalAnimes } from "../store";
         <h5>Total animes</h5>
         <div>{$totalAnimes}</div>
     {/if}
+    <!-- NSFW allowed/NSFW only? -->
 </main>
 
 <style lang="scss">

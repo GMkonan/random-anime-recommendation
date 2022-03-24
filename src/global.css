@@ -16,7 +16,6 @@ html, body {
 height: 100%;
 min-width: 100%;
 background: #fffffe; 
-transition: color 350ms ease 0s, background-color 350ms ease 0s;
 }
 
 #app {

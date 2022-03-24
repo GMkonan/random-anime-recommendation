@@ -13,8 +13,18 @@
     <div class="wrapper">
       <div class="info">
         <div class="score">
-          <h4>SCORE</h4>
-          <span>{$randomSelectedAnime.score == null ? "N/A" : $randomSelectedAnime.score}</span>
+          <div>
+            <h4>SCORE</h4>
+            <span>{$randomSelectedAnime.score == null ? "N/A" : $randomSelectedAnime.score}</span>
+          </div>
+          <div>
+            <h4>TYPE</h4>
+            <span>{$randomSelectedAnime.type}</span>
+          </div>
+          <div>
+            <h4>EPISODES</h4>
+            <span>{$randomSelectedAnime.episodes}</span>
+          </div>
         </div>
       </div>
       <div class="genres">
@@ -84,6 +94,10 @@
     width: min-content;
     margin-left: 16px;
     text-align: center;
+    display: flex;
+    gap: 24px;
+  }
+  .score > div {
   }
   .info {
     border-radius: 8px;

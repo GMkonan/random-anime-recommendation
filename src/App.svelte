@@ -1,14 +1,15 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import Filters from "./lib/Filters.svelte";
-  import GenreChooser from "./lib/genreChooser.svelte";
-  import RandomAnime from "./lib/randomAnime.svelte";
+  import GenreChooser from "./lib/GenreChooser.svelte";
+  import RandomAnime from "./lib/RandomAnime.svelte";
+import Welcome from "./lib/Welcome.svelte";
   import {
     genresStore,
     genres,
     randomSelectedAnimeStore,
     randomSelectedAnime,
-selectedGenres,
+    selectedGenres,
   } from "./store";
   import api from "./util/api";
   import Scroll from "./util/Scroll";
@@ -20,21 +21,22 @@ selectedGenres,
   });
 
   const getRandomAnime = async () => {
-    console.log({$selectedGenres})
+    console.log({ $selectedGenres });
     //@ts-ignore
     if ($selectedGenres.length !== 0) {
-      
       const formatedGenreIds = $selectedGenres.toString().split(" ").join(",");
-      
+
       let lastVisiblePage;
-      
+
       await fetch(`https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}`)
         .then((response) => response.json())
         .then((jsonResponse) => {
           lastVisiblePage = jsonResponse.pagination.last_visible_page;
         });
       let selectRandomPage = Math.floor(Math.random() * lastVisiblePage);
-      console.log(`https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}&page=${selectRandomPage}`)
+      console.log(
+        `https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}&page=${selectRandomPage}`
+      );
       fetch(
         `https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}&page=${selectRandomPage}`
       )
@@ -72,15 +74,13 @@ selectedGenres,
 </script>
 
 <main>
+  <Welcome />
   <div class="options">
     <GenreChooser {genres} />
     <!-- <Filters /> -->
   </div>
-
   <button on:click={getRandomAnime}>Get a random Anime!</button>
-</main>
 
-<main>
   <div id="randomAnime">
     {#if $randomSelectedAnime}
       <RandomAnime {randomSelectedAnime} />
@@ -94,10 +94,10 @@ selectedGenres,
   </div>
 </main>
 
+
 <style lang="scss">
   :root {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: 'Lato', sans-serif;
   }
 
   main {
@@ -116,6 +116,10 @@ selectedGenres,
   .options {
     display: flex;
     margin-top: 32px;
+    border: 2px solid #2a2a2a;
+    border-radius: 16px;
+    width: 600px;
+    height: 350px;
   }
 
   button {
@@ -123,11 +127,11 @@ selectedGenres,
     width: 200px;
     height: 70px;
     font-size: 1.1rem;
-    background-color: hsl(25.2,100%,61.8%);
+    background-color: hsl(25.2, 100%, 61.8%);
     border-radius: 4px;
     cursor: pointer;
     &:hover {
-      background-color: hsla(25.2,100%,61.8%, 95%);
+      background-color: hsla(25.2, 100%, 61.8%, 95%);
     }
   }
 </style>
