@@ -8,11 +8,10 @@
     genres,
     randomSelectedAnimeStore,
     randomSelectedAnime,
+selectedGenres,
   } from "./store";
   import api from "./util/api";
   import Scroll from "./util/Scroll";
-
-  let selectedGenres = [];
 
   onMount(async () => {
     //https://api.jikan.moe/v4/anime/1
@@ -21,9 +20,11 @@
   });
 
   const getRandomAnime = async () => {
-    if (selectedGenres.length !== 0) {
+    console.log({$selectedGenres})
+    //@ts-ignore
+    if ($selectedGenres.length !== 0) {
       
-      const formatedGenreIds = selectedGenres.toString().split(" ").join(",");
+      const formatedGenreIds = $selectedGenres.toString().split(" ").join(",");
       
       let lastVisiblePage;
       
@@ -33,7 +34,7 @@
           lastVisiblePage = jsonResponse.pagination.last_visible_page;
         });
       let selectRandomPage = Math.floor(Math.random() * lastVisiblePage);
-     
+      console.log(`https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}&page=${selectRandomPage}`)
       fetch(
         `https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}&page=${selectRandomPage}`
       )
@@ -72,7 +73,7 @@
 
 <main>
   <div class="options">
-    <GenreChooser {selectedGenres} {genres} />
+    <GenreChooser {genres} />
     <!-- <Filters /> -->
   </div>
 

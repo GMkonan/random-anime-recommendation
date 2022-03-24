@@ -1,19 +1,21 @@
 <script lang="ts">
-import { totalAnimes } from "../store";
+import { selectedGenres, totalAnimes } from "../store";
 
     import MultiSelect from 'svelte-multiselect'
-    export let selectedGenres;
     export let genres;
     let selected = []
     let checked = false;
 
-    const handleSelectedGenres = (genre_id) => {
-        if(selectedGenres.includes(genre_id)) {
-        selectedGenres.splice(selectedGenres.indexOf(genre_id), 1)
-        } else {
-        selectedGenres.push(genre_id)
-        }
+    const handleSelectedGenres = (selecteds) => {
+      selectedGenres.set(selecteds.map((s) => s.value))
+      console.log($selectedGenres)
+      //   if(selectedGenres.includes(genre_id)) {
+      //   selectedGenres.splice(selectedGenres.indexOf(genre_id), 1)
+      //   } else {
+      //   selectedGenres.push(genre_id)
+      //   }
 
+      //dont know if still gonna use this totalAnimes stuff
       const formatedGenreIds = selectedGenres.toString().split(" ").join(",") 
       fetch(`https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}`)
       .then(response => response.json())
@@ -24,9 +26,11 @@ import { totalAnimes } from "../store";
 </script>
 
 <main>
-  <MultiSelect 
+  <MultiSelect
+  on:add={() => handleSelectedGenres(selected)}
+  on:remove={() => handleSelectedGenres(selected)}
   bind:selected 
-  options={$genres.map((genre) => genre.name)} />
+  options={$genres.map((genre) => ({label: genre.name, value: genre.mal_id}))} />
 </main>
 
 <style lang="scss">

@@ -31,3 +31,5 @@ export const randomSelectedAnime = derived(randomSelectedAnimeStore, ($randomSel
 })
 
 export const totalAnimes = writable<Number>();
+
+export const selectedGenres = writable();
