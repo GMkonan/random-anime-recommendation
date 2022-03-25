@@ -1,21 +1,25 @@
 <script lang="ts">
   export let randomSelectedAnime;
-  console.log($randomSelectedAnime)
+  console.log($randomSelectedAnime);
 </script>
 
 <main>
   <h1>{$randomSelectedAnime.title}</h1>
   <section>
     <img
-    src={$randomSelectedAnime.images.jpg.image_url}
-    alt={$randomSelectedAnime.title}
+      src={$randomSelectedAnime.images.jpg.image_url}
+      alt={$randomSelectedAnime.title}
     />
     <div class="wrapper">
       <div class="info">
         <div class="score">
           <div>
             <h4>SCORE</h4>
-            <span>{$randomSelectedAnime.score == null ? "N/A" : $randomSelectedAnime.score}</span>
+            <span
+              >{$randomSelectedAnime.score == null
+                ? "N/A"
+                : $randomSelectedAnime.score}</span
+            >
           </div>
           <div>
             <h4>TYPE</h4>
@@ -32,7 +36,7 @@
         <ul>
           {#each $randomSelectedAnime.genres as genre}
             <li>
-              {genre.name} 
+              {genre.name}
             </li>
           {/each}
         </ul>
@@ -40,7 +44,6 @@
       <h3>Synopsis</h3>
       <p>{$randomSelectedAnime.synopsis}</p>
     </div>
-    
   </section>
 </main>
 
@@ -65,12 +68,13 @@
     height: min-content;
   }
   section {
-    display:flex;
+    display: flex;
   }
   .wrapper {
     display: flex;
     flex-direction: column;
     margin: 0 64px;
+    width: 100%; //1080px
   }
   h4 {
     font-size: 1.1rem;
@@ -98,6 +102,10 @@
     gap: 24px;
   }
   .score > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   .info {
     border-radius: 8px;
@@ -106,7 +114,7 @@
   }
   h3 {
     margin-top: 16px;
-    color:#ff8e3c;
+    color: #ff8e3c;
     border-bottom: 2px solid #ff8e3c;
   }
   ul {

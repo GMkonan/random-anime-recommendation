@@ -1,14 +1,12 @@
-import type { Writable } from "svelte/store";
+import axios from "axios";
 
-const api = (url: RequestInfo, store: Writable<any>) => {
-    fetch(url)
-    .then(response => response.json())
-    .then(jsonResponse => {
-      store.set(jsonResponse);
-    }).catch(error => {
-        console.log({error})
-        return error
+const api = async (path: string, params?: Object) => 
+    axios.get(`https://api.jikan.moe/v4/${path}`, {params: params})
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log({ error });
+      return error;
     });
-}
+;
 
 export default api;

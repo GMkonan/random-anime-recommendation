@@ -23,6 +23,7 @@
     "vite": "^2.8.0"
   },
   "dependencies": {
+    "axios": "^0.26.1",
     "svelte-multiselect": "^4.0.2"
   }
 }

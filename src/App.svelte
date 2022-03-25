@@ -3,7 +3,7 @@
   import Filters from "./lib/Filters.svelte";
   import GenreChooser from "./lib/GenreChooser.svelte";
   import RandomAnime from "./lib/RandomAnime.svelte";
-import Welcome from "./lib/Welcome.svelte";
+  import Welcome from "./lib/Welcome.svelte";
   import {
     genresStore,
     genres,
@@ -17,54 +17,31 @@ import Welcome from "./lib/Welcome.svelte";
   onMount(async () => {
     //https://api.jikan.moe/v4/anime/1
     //https://api.jikan.moe/v4/genres/anime
-    api("https://api.jikan.moe/v4/genres/anime", genresStore);
+    const genreOptions = await api("genres/anime");
+    genresStore.set(genreOptions);
   });
 
   const getRandomAnime = async () => {
-    console.log({ $selectedGenres });
-    //@ts-ignore
     if ($selectedGenres.length !== 0) {
       const formatedGenreIds = $selectedGenres.toString().split(" ").join(",");
 
-      let lastVisiblePage;
+      const {
+        pagination: { last_visible_page },
+      } = await api(`anime`, { genres: formatedGenreIds });
+      console.log(last_visible_page);
+      let selectRandomPage = Math.floor(Math.random() * last_visible_page);
 
-      await fetch(`https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}`)
-        .then((response) => response.json())
-        .then((jsonResponse) => {
-          lastVisiblePage = jsonResponse.pagination.last_visible_page;
-        });
-      let selectRandomPage = Math.floor(Math.random() * lastVisiblePage);
-      console.log(
-        `https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}&page=${selectRandomPage}`
-      );
-      fetch(
-        `https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}&page=${selectRandomPage}`
-      )
-        .then((response) => response.json())
-        .then((jsonResponse) => {
-          console.log(jsonResponse);
-          console.log(jsonResponse.data.length);
-          const selectRandom = Math.floor(
-            Math.random() * jsonResponse.data.length
-          );
-          console.log(selectRandom);
-          console.log(jsonResponse.data[selectRandom]);
-          randomSelectedAnimeStore.set(jsonResponse.data[selectRandom]);
-        })
-        .catch((error) => {
-          console.log(error);
-          return [];
-        });
+      const { data } = await api(`anime`, {
+        genres: formatedGenreIds,
+        page: selectRandomPage,
+      });
+
+      const selectRandom = Math.floor(Math.random() * data.length);
+
+      randomSelectedAnimeStore.set(data[selectRandom]);
     } else {
-      fetch("https://api.jikan.moe/v4/random/anime")
-        .then((response) => response.json())
-        .then((jsonResponse) => {
-          randomSelectedAnimeStore.set(jsonResponse.data);
-        })
-        .catch((error) => {
-          console.log(error);
-          return [];
-        });
+      const { data } = await api("random/anime");
+      randomSelectedAnimeStore.set(data);
     }
     Scroll("randomAnime");
   };
@@ -94,10 +71,9 @@ import Welcome from "./lib/Welcome.svelte";
   </div>
 </main>
 
-
 <style lang="scss">
   :root {
-    font-family: 'Lato', sans-serif;
+    font-family: "Lato", sans-serif;
   }
 
   main {

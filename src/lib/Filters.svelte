@@ -1,13 +1,18 @@
 <script lang="ts">
 import { totalAnimes } from "../store";
+import MultiSelect from "svelte-multiselect";
+let typeOptions = ['TV', 'Movie']
 </script>
 
 <main>
     <!-- choose min score option? -->
-    {#if $totalAnimes !== undefined}
+    
+    <!-- {#if $totalAnimes !== undefined}
         <h5>Total animes</h5>
         <div>{$totalAnimes}</div>
-    {/if}
+    {/if} -->
+
+    <MultiSelect options={typeOptions}/>
     <!-- NSFW allowed/NSFW only? -->
 </main>
 
