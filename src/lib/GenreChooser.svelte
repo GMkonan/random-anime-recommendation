@@ -8,17 +8,6 @@
 
   const handleSelectedGenres = (selecteds) => {
     selectedGenres.set(selecteds.map((s) => s.value));
-
-    //dont know if still gonna use this totalAnimes stuff
-    //if you still want to use you should use the "count" that comes in the
-    //JSON response
-    
-    // const formatedGenreIds = selectedGenres.toString().split(" ").join(",")
-    // fetch(`https://api.jikan.moe/v4/anime?genres=${formatedGenreIds}`)
-    // .then(response => response.json())
-    // .then(jsonResponse => {
-    //   totalAnimes.set(jsonResponse.data.length)
-    // })
   };
 </script>
 

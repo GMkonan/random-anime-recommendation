@@ -1,7 +1,15 @@
 <script lang="ts">
-import { totalAnimes } from "../store";
+import { selectedTypes, totalAnimes } from "../store";
 import MultiSelect from "svelte-multiselect";
-let typeOptions = ['TV', 'Movie']
+
+let typeOptions = ['tv', 'movie']
+let selected = [];
+const handleSelectedTypes = (selected) => {
+    selectedTypes.set(selected[0].value);
+    
+  };
+const removeSelectedType = () => selectedTypes.set(undefined)
+
 </script>
 
 <main>
@@ -12,7 +20,12 @@ let typeOptions = ['TV', 'Movie']
         <div>{$totalAnimes}</div>
     {/if} -->
 
-    <MultiSelect options={typeOptions}/>
+    <MultiSelect 
+    bind:selected 
+    options={typeOptions}
+    on:add={() => handleSelectedTypes(selected)}
+    on:remove={removeSelectedType}
+    maxSelect={1}/>
     <!-- NSFW allowed/NSFW only? -->
 </main>
 

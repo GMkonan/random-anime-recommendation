@@ -10,6 +10,7 @@
     randomSelectedAnimeStore,
     randomSelectedAnime,
     selectedGenres,
+selectedTypes,
   } from "./store";
   import api from "./util/api";
   import Scroll from "./util/Scroll";
@@ -22,24 +23,26 @@
   });
 
   const getRandomAnime = async () => {
-    if ($selectedGenres.length !== 0) {
+    if ($selectedGenres.length !== 0 || $selectedTypes !== "") {
       const formatedGenreIds = $selectedGenres.toString().split(" ").join(",");
 
       const {
         pagination: { last_visible_page },
-      } = await api(`anime`, { genres: formatedGenreIds });
+      } = await api(`anime`, { genres: formatedGenreIds, type: $selectedTypes });
       console.log(last_visible_page);
       let selectRandomPage = Math.floor(Math.random() * last_visible_page);
 
       const { data } = await api(`anime`, {
         genres: formatedGenreIds,
         page: selectRandomPage,
+        type: $selectedTypes
       });
 
       const selectRandom = Math.floor(Math.random() * data.length);
-
+      console.log(data)
       randomSelectedAnimeStore.set(data[selectRandom]);
     } else {
+      console.log($selectedTypes)
       const { data } = await api("random/anime");
       randomSelectedAnimeStore.set(data);
     }
@@ -54,7 +57,7 @@
   <Welcome />
   <div class="options">
     <GenreChooser {genres} />
-    <!-- <Filters /> -->
+    <Filters />
   </div>
   <button on:click={getRandomAnime}>Get a random Anime!</button>
 
@@ -63,10 +66,6 @@
       <RandomAnime {randomSelectedAnime} />
     {:else if $randomSelectedAnime == []}
       <h2>Could Not find any anime</h2>
-      <p>
-        Check if the "total animes" count is more than 0. This count represents
-        the quantity of animes that fall under that genre of genres.
-      </p>
     {/if}
   </div>
 </main>
@@ -91,6 +90,7 @@
 
   .options {
     display: flex;
+    flex-direction: column;
     margin-top: 32px;
     border: 2px solid #2a2a2a;
     border-radius: 16px;
