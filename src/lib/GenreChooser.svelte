@@ -12,6 +12,7 @@
 </script>
 
 <main>
+  <div>Genres:</div>
   <MultiSelect
     on:add={() => handleSelectedGenres(selected)}
     on:remove={() => handleSelectedGenres(selected)}

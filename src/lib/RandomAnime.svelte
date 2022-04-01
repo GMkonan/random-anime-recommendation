@@ -10,6 +10,9 @@
       src={$randomSelectedAnime.images.jpg.image_url}
       alt={$randomSelectedAnime.title}
     />
+    <!-- <div class="links">
+      {$randomSelectedAnime}
+    </div> -->
     <div class="wrapper">
       <div class="info">
         <div class="score">
