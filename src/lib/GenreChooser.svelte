@@ -12,7 +12,7 @@
 </script>
 
 <main>
-  <div>Genres:</div>
+  <h3>Genres:</h3>
   <MultiSelect
     on:add={() => handleSelectedGenres(selected)}
     on:remove={() => handleSelectedGenres(selected)}
@@ -26,14 +26,15 @@
 
 <style lang="scss">
   main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  }
+
+  h3 {
+    font-size: 1.7rem;
+    font-weight: 500;
   }
 
   :global(div.multiselect) {
-    width: 500px;
+    width: 465px;
     height: 40px;
   }
 

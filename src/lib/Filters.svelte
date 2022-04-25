@@ -19,7 +19,7 @@ const removeSelectedType = () => selectedTypes.set(undefined)
         <h5>Total animes</h5>
         <div>{$totalAnimes}</div>
     {/if} -->
-    <div>Type:</div>
+    <h3>Type:</h3>
     <MultiSelect 
     bind:selected 
     options={typeOptions}
@@ -34,13 +34,11 @@ const removeSelectedType = () => selectedTypes.set(undefined)
 main {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
   }
 
-h5 {
-    margin-bottom: 4px;
-
-}
+  h3 {
+    font-size: 1.7rem;
+    font-weight: 500;
+  }
 
 </style>

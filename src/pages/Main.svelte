@@ -19,6 +19,7 @@
       //https://api.jikan.moe/v4/genres/anime
       const genreOptions = await api("genres/anime");
       genresStore.set(genreOptions);
+      //render anime on start (recommendation?)
     });
   
     const getRandomAnime = async () => {
@@ -45,7 +46,7 @@
         const { data } = await api("random/anime");
         randomSelectedAnimeStore.set(data);
       }
-      Scroll("randomAnime");
+      //Scroll("randomAnime");
     };
   
     //maybe have some sort of recommendation button too!
@@ -53,31 +54,43 @@
   </script>
   
   <main>
-    <Welcome />
-    <div class="options">
-      <GenreChooser {genres} />
-      <Filters />
-    </div>
-    <button on:click={getRandomAnime}>Get a random Anime!</button>
+    <section>
+      <div class="options">
+        <GenreChooser {genres} />
+        <Filters />
+      </div>
+      <button on:click={getRandomAnime}>Get a random Anime!</button>
+    </section>
   </main>
   
   <style lang="scss">
-  
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      padding: 0 64px;
+    }
+    section {
+      width: 465px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
     .options {
       display: flex;
       flex-direction: column;
-      margin-top: 32px;
-      border: 2px solid #2a2a2a;
-      border-radius: 16px;
-      width: 600px;
-      height: 350px;
+      justify-content: center;
+      margin-bottom: 250px;
+      /* margin-top: 232px; */
     }
   
     button {
-      margin: 16px;
-      width: 200px;
-      height: 70px;
-      font-size: 1.1rem;
+      width: 465px;
+      height: 134px;
+      font-size: 2rem;
       background-color: hsl(25.2, 100%, 61.8%);
       border-radius: 4px;
       cursor: pointer;
