@@ -1,10 +1,21 @@
 <script lang="ts">
   export let randomSelectedAnime;
   console.log($randomSelectedAnime);
+
+  let readMore = true
+
+  //function doesnt update (rerender) on bool change
+  // const synopsis = () => {
+  //   let synopsis = $randomSelectedAnime.synopsis
+  //   console.log(readMore)
+  //   return readMore == false ? `${synopsis.slice(0, 240)}...` : synopsis
+  // }
+
+  const handleReadMore = () => readMore = !readMore
 </script>
 
 <main>
-  <section>
+  <section class="container">
     <div class="important-info">
       <img
         src={$randomSelectedAnime.images.jpg.image_url}
@@ -24,13 +35,57 @@
         </div>
       </section>
     </div>
+    
     <div class="brief">
       <h1>{$randomSelectedAnime.title}</h1>
-      <p>{$randomSelectedAnime.synopsis}</p>
+      <p>{readMore 
+          ? `${$randomSelectedAnime.synopsis.slice(0, 240)}...` 
+          : $randomSelectedAnime.synopsis}
+      </p>
+      <button on:click={handleReadMore}>{readMore ? "Read More" : "Read Less"}</button>
+      <div class="brief-info">
+        <div>
+          <h3>Genres</h3>
+          <ul>
+            {#each $randomSelectedAnime.genres as genre}
+              <li>
+                {genre.name}
+              </li>
+            {/each}
+          </ul>
+        </div>
+      </div>
     </div>
-  </section>
-  <section class="info">
 
+    <section class="info">
+      <div class="each-info">
+        <h2 class="info-title">English Title</h2>
+        <span>{$randomSelectedAnime.title_english}</span>
+      </div>
+      <div class="each-info">
+        <h2 class="info-title">Duration</h2>
+        <span>{$randomSelectedAnime.duration}</span>
+      </div>
+      <div class="each-info">
+        <h2 class="info-title">Status</h2>
+        <span>{$randomSelectedAnime.status}</span>
+      </div>
+      <div class="each-info">
+        <h2 class="info-title">Source</h2>
+        <span>{$randomSelectedAnime.source}</span>
+      </div>
+      <div class="each-info">
+        <h2 class="info-title">Season</h2>
+        <span>{$randomSelectedAnime.season}</span>
+      </div>
+      <div class="each-info">
+        {#each $randomSelectedAnime.studios as studio}
+          <h2 class="info-title">Studios</h2>
+          <span>{studio.name}</span>
+        {/each}
+      </div>
+    </section>
+  
   </section>
 </main>
 
@@ -45,8 +100,9 @@
     height: min-content;
   }
 
-  section {
+  .container {
     display:flex;
+    flex-direction: row;
   }
   
   .important-info {
@@ -81,7 +137,7 @@
   }
   h2 {
     margin-top: 4px;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 26px;
     color: #0D0D0D;
   }
@@ -91,24 +147,76 @@
     margin-top: 16px;
   }
 
-  h1 {
-    font-size: 28px;
-    font-weight: 500;
+  .brief-info {
+    margin-top: 32px;
   }
 
-  p {
-
+  .brief-info > div > h3 {
+    color: #FF8E3C;
+    border-bottom: 2px solid #FF8E3C;
+    font-size: 1.5rem;
   }
 
   ul {
     display: flex;
     list-style-type: none;
-    gap: 10px;
+    gap: 8px;
   }
   li {
+    font-size: 1.2rem;
     margin-top: 8px;
     &:not(:last-child)::after {
       content: "|";
     }
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    background: none;
+    color: #FF8E3C;
+    padding: 0;
+    border: none;
+
+    text-decoration: underline;
+    font-weight: 600;
+    margin-top: 8px;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    min-width: 240px;
+    padding-left: 32px;
+    margin-top: 32px;
+    gap: 32px;
+  }
+
+  /* .each-info {
+    
+  } */
+
+  .info-title {
+    font-size: 1.4rem;
+    color: #FF8E3C;
+    border-bottom: 3px solid #FF8E3C;
+    margin-bottom: 8px;
+  }
+
+  span {
+    font-weight: 600;
   }
 </style>

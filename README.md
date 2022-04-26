@@ -1,3 +1,6 @@
+## Figma file
+- https://www.figma.com/file/Lzmas6E3fyzRPBSw7VAJZ3/Untitled?node-id=3%3A9
+
 # Svelte + TS + Vite
 
 This template should help get you started developing with Svelte and TypeScript in Vite.
