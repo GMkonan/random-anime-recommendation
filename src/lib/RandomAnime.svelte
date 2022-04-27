@@ -38,11 +38,13 @@
     
     <div class="brief">
       <h1>{$randomSelectedAnime.title}</h1>
-      <p>{readMore 
+      <p>{readMore && $randomSelectedAnime.synopsis.length > 240
           ? `${$randomSelectedAnime.synopsis.slice(0, 240)}...` 
           : $randomSelectedAnime.synopsis}
       </p>
-      <button on:click={handleReadMore}>{readMore ? "Read More" : "Read Less"}</button>
+      {#if $randomSelectedAnime.synopsis.length > 240}
+        <button on:click={handleReadMore}>{readMore ? "Read More" : "Read Less"}</button>
+      {/if}
       <div class="brief-info">
         <div>
           <h3>Genres</h3>
@@ -145,6 +147,7 @@
   .brief {
     margin-left: 48px;
     margin-top: 16px;
+    width: 680px; //this may have to be adjusted in the future
   }
 
   .brief-info {

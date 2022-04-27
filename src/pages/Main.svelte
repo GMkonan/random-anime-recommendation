@@ -12,8 +12,9 @@
   selectedTypes,
     } from "../store";
     import api from "../util/api";
-    import Scroll from "../util/Scroll";
-  
+
+    let time = true
+
     onMount(async () => {
       //https://api.jikan.moe/v4/anime/1
       //https://api.jikan.moe/v4/genres/anime
@@ -23,6 +24,7 @@
     });
   
     const getRandomAnime = async () => {
+
       if ($selectedGenres.length !== 0 || $selectedTypes !== "") {
         const formatedGenreIds = $selectedGenres.toString().split(" ").join(",");
   
@@ -47,6 +49,10 @@
         randomSelectedAnimeStore.set(data);
       }
       //Scroll("randomAnime");
+
+      //cap api calls to prevent overflow
+      time = false;
+      setTimeout(() => time = true, 1000)
     };
   
     //maybe have some sort of recommendation button too!
@@ -59,7 +65,7 @@
         <GenreChooser {genres} />
         <Filters />
       </div>
-      <button on:click={getRandomAnime}>Get a random Anime!</button>
+      <button on:click={getRandomAnime} disabled={!time}>Get a random Anime!</button>
     </section>
   </main>
   
@@ -92,10 +98,15 @@
       height: 134px;
       font-size: 2rem;
       background-color: hsl(25.2, 100%, 61.8%);
+      border: none;
       border-radius: 4px;
       cursor: pointer;
       &:hover {
-        background-color: hsla(25.2, 100%, 61.8%, 95%);
+        background-color: hsla(25.2, 100%, 61.8%, 92%);
+      }
+      &:disabled {
+        background-color: hsla(25.2, 100%, 61.8%, 80%);
+        cursor: auto;
       }
     }
   </style>
