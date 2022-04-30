@@ -61,7 +61,7 @@
 
     <section class="info">
       <div class="each-info">
-        <h2 class="info-title">English Title</h2>
+        <h2 class="info-title">Alternative Title</h2>
         <span>{$randomSelectedAnime.title_english}</span>
       </div>
       <div class="each-info">
@@ -78,12 +78,12 @@
       </div>
       <div class="each-info">
         <h2 class="info-title">Season</h2>
-        <span>{$randomSelectedAnime.season}</span>
+        <span>{$randomSelectedAnime.season} {new Date($randomSelectedAnime.aired.from).getFullYear()}</span>
       </div>
       <div class="each-info">
+        <h2 class="info-title">Studios</h2>
         {#each $randomSelectedAnime.studios as studio}
-          <h2 class="info-title">Studios</h2>
-          <span>{studio.name}</span>
+          <span class="studio-span">{studio.name}</span>
         {/each}
       </div>
     </section>
@@ -221,5 +221,12 @@
 
   span {
     font-weight: 600;
+  }
+  
+  .studio-span {
+    &:not(:last-child)::after {
+      content: "|";
+      margin: 0 4px;
+    }
   }
 </style>
