@@ -2,7 +2,6 @@
     import { onMount } from "svelte";
     import Filters from "../lib/Filters.svelte";
     import GenreChooser from "../lib/GenreChooser.svelte";
-    import Welcome from "../lib/Welcome.svelte";
     import {
       genresStore,
       genres,
@@ -21,6 +20,8 @@
       const genreOptions = await api("genres/anime");
       genresStore.set(genreOptions);
       //render anime on start (recommendation?)
+      
+      //getRandomAnime()
     });
   
     const getRandomAnime = async () => {

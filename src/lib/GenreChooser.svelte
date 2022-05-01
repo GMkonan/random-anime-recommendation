@@ -17,6 +17,7 @@
     on:add={() => handleSelectedGenres(selected)}
     on:remove={() => handleSelectedGenres(selected)}
     bind:selected
+    maxSelect={4}
     options={$genres.map((genre) => ({
       label: genre.name,
       value: genre.mal_id,
@@ -25,8 +26,6 @@
 </main>
 
 <style lang="scss">
-  main {
-  }
 
   h3 {
     font-size: 1.7rem;

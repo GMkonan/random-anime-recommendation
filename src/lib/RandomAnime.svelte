@@ -4,13 +4,6 @@
 
   let readMore = true
 
-  //function doesnt update (rerender) on bool change
-  // const synopsis = () => {
-  //   let synopsis = $randomSelectedAnime.synopsis
-  //   console.log(readMore)
-  //   return readMore == false ? `${synopsis.slice(0, 240)}...` : synopsis
-  // }
-
   const handleReadMore = () => readMore = !readMore
 </script>
 
